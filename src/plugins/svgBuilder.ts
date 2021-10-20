@@ -26,14 +26,17 @@ function findSvgFile(dir: string): string[] {
           // console.log(dirent.name)
           let width = 0;
           let height = 0;
-          let content = $2.replace(clearHeightWidth, (s1, s2, s3) => {
-            if (s2 === "width") {
-              width = s3;
-            } else if (s2 === "height") {
-              height = s3;
+          let content = $2.replace(
+            clearHeightWidth,
+            (s1: string, s2: string, s3: number) => {
+              if (s2 === "width") {
+                width = s3;
+              } else if (s2 === "height") {
+                height = s3;
+              }
+              return "";
             }
-            return "";
-          });
+          );
           if (!hasViewBox.test($2)) {
             content += `viewBox="0 0 ${width} ${height}"`;
           }
@@ -50,7 +53,7 @@ function findSvgFile(dir: string): string[] {
 }
 
 export const svgBuilder = (path: string, perfix = "icon"): Plugin => {
-  if (path === "") return;
+  if (path === "") throw new Error("请传入 svg 文件地址");
   idPerfix = perfix;
   const res = findSvgFile(path);
   // console.log(res.length)
