@@ -11,3 +11,5 @@ app.use(router);
 app.component("icon", Icon);
 
 app.mount("#app");
+
+console.log(1)
